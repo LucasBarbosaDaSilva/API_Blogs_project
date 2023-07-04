@@ -12,6 +12,8 @@ const {
 
 router.get('/', validateToken, controllerUser.getAllUsers);
 
+router.get('/:id', validateToken, controllerUser.getUserById);
+
 router.post(
   '/', 
 validateDisplayName,

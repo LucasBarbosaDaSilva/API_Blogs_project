@@ -9,6 +9,15 @@ const getAllUsers = async (_req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const result = await serviceUser.getUserById(id);
+  if (!result) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+  return res.status(200).json(result);  
+};
+
 const postUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
 const { type, data } = await serviceUser.postUser({ displayName, email, password, image });
@@ -18,4 +27,5 @@ const { type, data } = await serviceUser.postUser({ displayName, email, password
 module.exports = {
   postUser,
   getAllUsers,
+  getUserById,
 };

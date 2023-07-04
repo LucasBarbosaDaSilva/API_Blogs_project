@@ -17,6 +17,14 @@ const getUser = async (email, password) => {
   return user;
 };
 
+const getUserById = async (id) => {
+  const user = await User.findByPk(id, {
+    attributes: { exclude: ['password'] },
+    });
+
+  return user;
+};
+
 const postUser = async ({ displayName, email, password, image }) => {
   const user = await User.findOne({
     attributes: ['id', 'displayName', 'email', 'image'],
@@ -47,4 +55,5 @@ module.exports = {
   postUser,
   getAllUsers,
   getUser,
+  getUserById,
 };
