@@ -36,6 +36,16 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
+const validateName = (req, res, next) => {
+  const { name } = req.body;
+
+  if (!name) {
+    return res.status(400).json({ message: '"name" is required' });
+  }
+
+  next();
+};
+
 const validateUser = async (req, res, next) => {
   const { email } = req.body;
 
@@ -56,4 +66,5 @@ module.exports = {
   validateEmail,
   validatePassword,
   validateUser,
+  validateName,
 };
