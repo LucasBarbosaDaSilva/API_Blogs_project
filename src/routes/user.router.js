@@ -4,11 +4,13 @@ const router = express.Router();
 
 const { controllerUser } = require('../controllers');
 
-// const { validateToken } = require('../middlewares/tokenValidation.middleware');
+const { validateToken } = require('../middlewares/tokenValidation.middleware');
 
 const { 
   validateEmail, validatePassword, validateDisplayName, validateUser,
 } = require('../middlewares/userValidation.middleware');
+
+router.get('/', validateToken, controllerUser.getAllUsers);
 
 router.post(
   '/', 

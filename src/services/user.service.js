@@ -1,6 +1,22 @@
 const { User } = require('../models');
 const { createToken } = require('../helpers/jasonWebToken');
 
+const getAllUsers = async () => {
+  const users = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+
+  return users;
+};
+
+const getUser = async (email, password) => {
+  const user = await User.findOne({
+    where: { email, password },
+  });
+
+  return user;
+};
+
 const postUser = async ({ displayName, email, password, image }) => {
   const user = await User.findOne({
     attributes: ['id', 'displayName', 'email', 'image'],
@@ -29,4 +45,6 @@ const postUser = async ({ displayName, email, password, image }) => {
 
 module.exports = {
   postUser,
+  getAllUsers,
+  getUser,
 };
