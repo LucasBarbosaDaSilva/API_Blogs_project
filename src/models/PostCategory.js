@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     postId: { type: DataTypes.INTEGER, foreignKey: true },
     categoryId: { type: DataTypes.INTEGER, foreignKey: true },
   }, {
-    tableName: 'PostsCategories',
+    tableName: 'posts_categories',
     timestamps: false,
     underscored: true,
   });
@@ -12,14 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     models.BlogPost.belongsToMany(models.Category, {
       as: 'categories',
       through: PostCategory,
-      foreignKey: 'postId',
-      otherKey: 'categoryId',
+      foreignKey: 'post_id',
+      otherKey: 'category_id',
     });
     models.Category.belongsToMany(models.BlogPost, {
-      as: 'blogPosts',
+      as: 'blog_posts',
       through: PostCategory,
-      foreignKey: 'categoryId',
-      otherKey: 'postId',
+      foreignKey: 'category_id',
+      otherKey: 'post_id',
     });
   };
 
