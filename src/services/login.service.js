@@ -1,7 +1,7 @@
 const { User } = require('../models');
 const { createToken } = require('../helpers/jasonWebToken');
 
-const loginValidate = async ({ email, password }) => {
+const loginValidationServer = async ({ email, password }) => {
   const user = await User.findOne({ 
     attibutes: ['id', 'displayName', 'email', 'image'],
     where: { email, password },
@@ -24,5 +24,5 @@ return {
 };
 
 module.exports = {
-  loginValidate,
+  loginValidationServer,
 };

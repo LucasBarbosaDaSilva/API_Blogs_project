@@ -1,4 +1,4 @@
-const { User } = require('../models/User');
+const { User } = require('../models');
 const { createToken } = require('../helpers/jasonWebToken');
 
 const postUser = async ({ displayName, email, password, image }) => {
