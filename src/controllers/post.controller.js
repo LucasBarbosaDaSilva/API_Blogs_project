@@ -12,7 +12,16 @@ const getPostById = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const deletePostById = async (req, res) => {
+  const { id } = req.params;
+  const { id: userId } = req.user;
+const { type, data } = await serviceBlogPost.deletePostById({ id, userId });
+
+return res.status(type).json(data);
+};
+
 module.exports = {
   getAllPost,
   getPostById,
+  deletePostById,
 };

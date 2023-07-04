@@ -21,7 +21,24 @@ const getPostById = async (id) => {
   return post;
 };
 
+const deletePostById = async ({ id, userId }) => {
+  const post = await BlogPost.findByPk(id);
+
+  if (!post) {
+    return { type: 404, data: { message: 'Post does not exist' } };
+  } 
+  if (post.userId !== userId) {
+    return { type: 401, data: { message: 'Unauthorized user' } };
+  } 
+  await BlogPost.destroy({ where: { id } });
+
+  const deletedPost = await BlogPost.findByPk(id);
+
+  return { type: 204, data: deletedPost };
+};
+
 module.exports = {
   getAll,
   getPostById,
+  deletePostById,
 };
