@@ -21,12 +21,24 @@ const createPost = async (req, res) => {
   return res.status(type).json(message);
 };
 
+const upDatePost = async (req, res) => {
+  const { id } = req.params;
+  const { id: userId } = req.user;
+
+  const { title, content } = req.body;
+
+  const { type, data } = await serviceBlogPost
+    .upDatePost({ id, title, content, userId });
+
+  return res.status(type).json(data);
+};
+
 const deletePostById = async (req, res) => {
   const { id } = req.params;
   const { id: userId } = req.user;
-const { type, data } = await serviceBlogPost.deletePostById({ id, userId });
+const { type, message } = await serviceBlogPost.deletePostById({ id, userId });
 
-return res.status(type).json(data);
+return res.status(type).json(message);
 };
 
 module.exports = {
@@ -34,4 +46,5 @@ module.exports = {
   getPostById,
   deletePostById,
   createPost,
+  upDatePost,
 };

@@ -47,16 +47,40 @@ const creatPost = async (title, content, token, categoryIds) => {
   postCategory(categoryIds, postCreated);
   return { type: 201, message: postCreated };
 };
+const upDatePost = async ({ id, title, content, userId }) => {
+  const postToBeUpdate = await BlogPost.findByPk(id);
+
+  if (!postToBeUpdate) {
+    return { type: 400, data: { message: 'Post does not exist' } };
+  }
+
+  if (postToBeUpdate.userId !== userId) {
+    return { type: 401, data: { message: 'Unauthorized user' } };
+  }
+
+  await BlogPost.update({ title, content }, { where: { id } });
+
+  const updatedPost = await BlogPost.findByPk(id, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return { type: 200, data: updatedPost };
+};
 
 const deletePostById = async ({ id, userId }) => {
-  const post = await BlogPost.findByPk(id);
+  const postToBeDelete = await BlogPost.findByPk(id);
 
-  if (!post) {
+  if (!postToBeDelete) {
     return { type: 404, data: { message: 'Post does not exist' } };
-  } 
-  if (post.dataValues.userId !== userId) {
+  }
+
+  if (postToBeDelete.userId !== userId) {
     return { type: 401, data: { message: 'Unauthorized user' } };
-  } 
+  }
+
   await BlogPost.destroy({ where: { id } });
 
   const deletedPost = await BlogPost.findByPk(id);
@@ -69,4 +93,5 @@ module.exports = {
   getPostById,
   deletePostById,
   creatPost,
+  upDatePost,
 };
