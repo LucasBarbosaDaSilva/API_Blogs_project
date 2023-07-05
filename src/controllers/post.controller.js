@@ -12,6 +12,15 @@ const getPostById = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const createPost = async (req, res) => {
+  const { title, content, categoryIds } = req.body;
+  const token = req.headers.authorization;
+
+  const result = await serviceBlogPost.creatPost(title, content, token, categoryIds);
+  const { type, message } = result;
+  return res.status(type).json(message);
+};
+
 const deletePostById = async (req, res) => {
   const { id } = req.params;
   const { id: userId } = req.user;
@@ -24,4 +33,5 @@ module.exports = {
   getAllPost,
   getPostById,
   deletePostById,
+  createPost,
 };
