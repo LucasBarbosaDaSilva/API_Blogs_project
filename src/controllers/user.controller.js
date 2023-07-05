@@ -24,8 +24,16 @@ const { type, data } = await serviceUser.postUser({ displayName, email, password
   return res.status(type).json(data);
 };
 
+const deleteUserById = async (req, res) => {
+  const { id } = req.user;
+  const { type, data } = await serviceUser.deleteUserById(id);
+
+  return res.status(type).json(data);
+};
+
 module.exports = {
   postUser,
   getAllUsers,
   getUserById,
+  deleteUserById,
 };

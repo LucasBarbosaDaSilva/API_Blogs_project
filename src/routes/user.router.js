@@ -23,4 +23,6 @@ validateDisplayName,
  controllerUser.postUser,
  );
 
+router.delete('/me', validateToken, controllerUser.deleteUserById);
+
  module.exports = router;
