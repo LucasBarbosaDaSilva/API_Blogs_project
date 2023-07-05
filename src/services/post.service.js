@@ -25,7 +25,7 @@ const getPostById = async (id) => {
 const getUser = async (token) => {
   const verify = verifyToken(token);
   const { email } = verify;
-  const user = await User.findOne({ where: email });
+  const user = await User.findOne({ where: { email } });
   return user;
 };
 

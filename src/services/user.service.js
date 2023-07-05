@@ -38,9 +38,9 @@ const postUser = async ({ displayName, email, password, image }) => {
 
   const newUser = await User.create({ displayName, email, password, image });
 
-  const payload = {
-    id: newUser.id,
+  const payload = { id: newUser.id,
     displayName: newUser.displayName,
+    email: newUser.email,
   };
 
   const token = createToken(payload);

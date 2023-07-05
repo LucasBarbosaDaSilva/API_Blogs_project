@@ -14,7 +14,7 @@ const loginValidationServer = async ({ email, password }) => {
   }; 
 }
 
-const payload = { id: user.id, displayName: user.displayName };
+const payload = { id: user.id, displayName: user.displayName, email: user.email };
 const token = createToken(payload);
 
 return {
