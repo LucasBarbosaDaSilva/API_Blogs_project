@@ -5,7 +5,8 @@ const router = express.Router();
 const { controllerBlogPost } = require('../controllers');
 
 const { validateToken } = require('../middlewares/tokenValidation.middleware');
-const { validatePost, validationUpdate } = require('../middlewares/userValidation.middleware');
+const { validatePost, 
+  validationUpdate } = require('../middlewares/userValidation.middleware');
 
 router.get('/', validateToken, controllerBlogPost.getAllPost);
 router.get('/:id', validateToken, controllerBlogPost.getPostById);

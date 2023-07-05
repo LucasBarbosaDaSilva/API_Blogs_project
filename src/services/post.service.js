@@ -71,21 +71,18 @@ const upDatePost = async ({ id, title, content, userId }) => {
 };
 
 const deletePostById = async ({ id, userId }) => {
-  const postToBeDelete = await BlogPost.findByPk(id);
+  const post = await BlogPost.findByPk(id);
 
-  if (!postToBeDelete) {
+  if (!post) {
     return { type: 404, data: { message: 'Post does not exist' } };
-  }
-
-  if (postToBeDelete.userId !== userId) {
+  } 
+  if (post.userId !== userId) {
     return { type: 401, data: { message: 'Unauthorized user' } };
   }
 
   await BlogPost.destroy({ where: { id } });
 
-  const deletedPost = await BlogPost.findByPk(id);
-
-  return { type: 204, data: deletedPost };
+  return { type: 204 };
 };
 
 module.exports = {
